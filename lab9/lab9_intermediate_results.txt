@@ -1,0 +1,783 @@
+ 
+********************************************
+*                                          *
+*       S - B O X   C R E A T I O N        *
+*                                          *
+*   (this might take a few seconds ;-))    *
+*                                          *
+********************************************
+ 
+    s_box : 63 7c 77 7b f2 6b 6f c5 30 01 67 2b fe d7 ab 76 
+            ca 82 c9 7d fa 59 47 f0 ad d4 a2 af 9c a4 72 c0 
+            b7 fd 93 26 36 3f f7 cc 34 a5 e5 f1 71 d8 31 15 
+            04 c7 23 c3 18 96 05 9a 07 12 80 e2 eb 27 b2 75 
+            09 83 2c 1a 1b 6e 5a a0 52 3b d6 b3 29 e3 2f 84 
+            53 d1 00 ed 20 fc b1 5b 6a cb be 39 4a 4c 58 cf 
+            d0 ef aa fb 43 4d 33 85 45 f9 02 7f 50 3c 9f a8 
+            51 a3 40 8f 92 9d 38 f5 bc b6 da 21 10 ff f3 d2 
+            cd 0c 13 ec 5f 97 44 17 c4 a7 7e 3d 64 5d 19 73 
+            60 81 4f dc 22 2a 90 88 46 ee b8 14 de 5e 0b db 
+            e0 32 3a 0a 49 06 24 5c c2 d3 ac 62 91 95 e4 79 
+            e7 c8 37 6d 8d d5 4e a9 6c 56 f4 ea 65 7a ae 08 
+            ba 78 25 2e 1c a6 b4 c6 e8 dd 74 1f 4b bd 8b 8a 
+            70 3e b5 66 48 03 f6 0e 61 35 57 b9 86 c1 1d 9e 
+            e1 f8 98 11 69 d9 8e 94 9b 1e 87 e9 ce 55 28 df 
+            8c a1 89 0d bf e6 42 68 41 99 2d 0f b0 54 bb 16 
+ 
+inv_s_box : 52 09 6a d5 30 36 a5 38 bf 40 a3 9e 81 f3 d7 fb 
+            7c e3 39 82 9b 2f ff 87 34 8e 43 44 c4 de e9 cb 
+            54 7b 94 32 a6 c2 23 3d ee 4c 95 0b 42 fa c3 4e 
+            08 2e a1 66 28 d9 24 b2 76 5b a2 49 6d 8b d1 25 
+            72 f8 f6 64 86 68 98 16 d4 a4 5c cc 5d 65 b6 92 
+            6c 70 48 50 fd ed b9 da 5e 15 46 57 a7 8d 9d 84 
+            90 d8 ab 00 8c bc d3 0a f7 e4 58 05 b8 b3 45 06 
+            d0 2c 1e 8f ca 3f 0f 02 c1 af bd 03 01 13 8a 6b 
+            3a 91 11 41 4f 67 dc ea 97 f2 cf ce f0 b4 e6 73 
+            96 ac 74 22 e7 ad 35 85 e2 f9 37 e8 1c 75 df 6e 
+            47 f1 1a 71 1d 29 c5 89 6f b7 62 0e aa 18 be 1b 
+            fc 56 3e 4b c6 d2 79 20 9a db c0 fe 78 cd 5a f4 
+            1f dd a8 33 88 07 c7 31 b1 12 10 59 27 80 ec 5f 
+            60 51 7f a9 19 b5 4a 0d 2d e5 7a 9f 93 c9 9c ef 
+            a0 e0 3b 4d ae 2a f5 b0 c8 eb bb 3c 83 53 99 61 
+            17 2b 04 7e ba 77 d6 26 e1 69 14 63 55 21 0c 7d 
+ 
+ 
+********************************************
+*                                          *
+*        R C O N   C R E A T I O N         *
+*                                          *
+********************************************
+ 
+rcon : 01 00 00 00 
+       02 00 00 00 
+       04 00 00 00 
+       08 00 00 00 
+       10 00 00 00 
+       20 00 00 00 
+       40 00 00 00 
+       80 00 00 00 
+       1b 00 00 00 
+       36 00 00 00 
+ 
+ 
+********************************************
+*                                          *
+*        K E Y   E X P A N S I O N         *
+*                                          *
+********************************************
+ 
+w(1:4, :) :       00 01 02 03 
+                  04 05 06 07 
+                  08 09 0a 0b 
+                  0c 0d 0e 0f 
+ 
+After rot_word :  0d 0e 0f 0c 
+ 
+After sub_bytes : d7 ab 76 fe 
+ 
+rcon(05, :) :     01 00 00 00 
+ 
+After rcon xor :  d6 ab 76 fe 
+ 
+w(05, :) :        d6 aa 74 fd 
+ 
+w(06, :) :        d2 af 72 fa 
+ 
+w(07, :) :        da a6 78 f1 
+ 
+w(08, :) :        d6 ab 76 fe 
+ 
+After rot_word :  ab 76 fe d6 
+ 
+After sub_bytes : 62 38 bb f6 
+ 
+rcon(09, :) :     02 00 00 00 
+ 
+After rcon xor :  60 38 bb f6 
+ 
+w(09, :) :        b6 92 cf 0b 
+ 
+w(10, :) :        64 3d bd f1 
+ 
+w(11, :) :        be 9b c5 00 
+ 
+w(12, :) :        68 30 b3 fe 
+ 
+After rot_word :  30 b3 fe 68 
+ 
+After sub_bytes : 04 6d bb 45 
+ 
+rcon(13, :) :     04 00 00 00 
+ 
+After rcon xor :  00 6d bb 45 
+ 
+w(13, :) :        b6 ff 74 4e 
+ 
+w(14, :) :        d2 c2 c9 bf 
+ 
+w(15, :) :        6c 59 0c bf 
+ 
+w(16, :) :        04 69 bf 41 
+ 
+After rot_word :  69 bf 41 04 
+ 
+After sub_bytes : f9 08 83 f2 
+ 
+rcon(17, :) :     08 00 00 00 
+ 
+After rcon xor :  f1 08 83 f2 
+ 
+w(17, :) :        47 f7 f7 bc 
+ 
+w(18, :) :        95 35 3e 03 
+ 
+w(19, :) :        f9 6c 32 bc 
+ 
+w(20, :) :        fd 05 8d fd 
+ 
+After rot_word :  05 8d fd fd 
+ 
+After sub_bytes : 6b 5d 54 54 
+ 
+rcon(21, :) :     10 00 00 00 
+ 
+After rcon xor :  7b 5d 54 54 
+ 
+w(21, :) :        3c aa a3 e8 
+ 
+w(22, :) :        a9 9f 9d eb 
+ 
+w(23, :) :        50 f3 af 57 
+ 
+w(24, :) :        ad f6 22 aa 
+ 
+After rot_word :  f6 22 aa ad 
+ 
+After sub_bytes : 42 93 ac 95 
+ 
+rcon(25, :) :     20 00 00 00 
+ 
+After rcon xor :  62 93 ac 95 
+ 
+w(25, :) :        5e 39 0f 7d 
+ 
+w(26, :) :        f7 a6 92 96 
+ 
+w(27, :) :        a7 55 3d c1 
+ 
+w(28, :) :        0a a3 1f 6b 
+ 
+After rot_word :  a3 1f 6b 0a 
+ 
+After sub_bytes : 0a c0 7f 67 
+ 
+rcon(29, :) :     40 00 00 00 
+ 
+After rcon xor :  4a c0 7f 67 
+ 
+w(29, :) :        14 f9 70 1a 
+ 
+w(30, :) :        e3 5f e2 8c 
+ 
+w(31, :) :        44 0a df 4d 
+ 
+w(32, :) :        4e a9 c0 26 
+ 
+After rot_word :  a9 c0 26 4e 
+ 
+After sub_bytes : d3 ba f7 2f 
+ 
+rcon(33, :) :     80 00 00 00 
+ 
+After rcon xor :  53 ba f7 2f 
+ 
+w(33, :) :        47 43 87 35 
+ 
+w(34, :) :        a4 1c 65 b9 
+ 
+w(35, :) :        e0 16 ba f4 
+ 
+w(36, :) :        ae bf 7a d2 
+ 
+After rot_word :  bf 7a d2 ae 
+ 
+After sub_bytes : 08 da b5 e4 
+ 
+rcon(37, :) :     1b 00 00 00 
+ 
+After rcon xor :  13 da b5 e4 
+ 
+w(37, :) :        54 99 32 d1 
+ 
+w(38, :) :        f0 85 57 68 
+ 
+w(39, :) :        10 93 ed 9c 
+ 
+w(40, :) :        be 2c 97 4e 
+ 
+After rot_word :  2c 97 4e be 
+ 
+After sub_bytes : 71 88 2f ae 
+ 
+rcon(41, :) :     36 00 00 00 
+ 
+After rcon xor :  47 88 2f ae 
+ 
+w(41, :) :        13 11 1d 7f 
+ 
+w(42, :) :        e3 94 4a 17 
+ 
+w(43, :) :        f3 07 a7 8b 
+ 
+w(44, :) :        4d 2b 30 c5 
+ 
+ 
+********************************************
+*                                          *
+*    P O L Y _ M A T   C R E A T I O N     *
+*                                          *
+********************************************
+ 
+    poly_mat : 02 03 01 01 
+               01 02 03 01 
+               01 01 02 03 
+               03 01 01 02 
+ 
+inv_poly_mat : 0e 0b 0d 09 
+               09 0e 0b 0d 
+               0d 09 0e 0b 
+               0b 0d 09 0e 
+ 
+ 
+********************************************
+*                                          *
+*               C I P H E R                *
+*                                          *
+********************************************
+ 
+Initial state :                  ec ec ec ec 
+                                 e2 e2 e2 e2 
+                                 98 98 98 98 
+                                 dc dc dc dc 
+ 
+Initial round key :              00 04 08 0c 
+                                 01 05 09 0d 
+                                 02 06 0a 0e 
+                                 03 07 0b 0f 
+ 
+State at start of round 1 :      ec e8 e4 e0 
+                                 e3 e7 eb ef 
+                                 9a 9e 92 96 
+                                 df db d7 d3 
+ 
+After sub_bytes :                ce 9b 69 e1 
+                                 11 94 e9 df 
+                                 b8 0b 4f 90 
+                                 9e b9 0e 66 
+ 
+After shift_rows :               ce 9b 69 e1 
+                                 94 e9 df 11 
+                                 4f 90 b8 0b 
+                                 66 9e b9 0e 
+ 
+After mix_columns :              09 03 a9 ef 
+                                 4a 67 a6 d0 
+                                 6e f0 0d f4 
+                                 5e e8 b5 3e 
+ 
+Round key :                      d6 d2 da d6 
+                                 aa af a6 ab 
+                                 74 72 78 76 
+                                 fd fa f1 fe 
+ 
+State at start of round 2 :      df d1 73 39 
+                                 e0 c8 00 7b 
+                                 1a 82 75 82 
+                                 a3 12 44 c0 
+ 
+After sub_bytes :                9e 3e 8f 12 
+                                 e1 e8 63 21 
+                                 a2 13 9d 13 
+                                 0a c9 1b ba 
+ 
+After shift_rows :               9e 3e 8f 12 
+                                 e8 63 21 e1 
+                                 9d 13 a2 13 
+                                 ba 0a c9 1b 
+ 
+After mix_columns :              23 c0 0d 14 
+                                 53 c7 f9 e5 
+                                 82 65 b1 f8 
+                                 a3 26 80 f2 
+ 
+Round key :                      b6 64 be 68 
+                                 92 3d 9b 30 
+                                 cf bd c5 b3 
+                                 0b f1 00 fe 
+ 
+State at start of round 3 :      95 a4 b3 7c 
+                                 c1 fa 62 d5 
+                                 4d d8 74 4b 
+                                 a8 d7 80 0c 
+ 
+After sub_bytes :                2a 49 6d 10 
+                                 78 2d aa 03 
+                                 e3 61 92 b3 
+                                 c2 0e cd fe 
+ 
+After shift_rows :               2a 49 6d 10 
+                                 2d aa 03 78 
+                                 92 b3 e3 61 
+                                 fe c2 0e cd 
+ 
+After mix_columns :              4f 06 32 04 
+                                 23 0a 5b 8e 
+                                 21 c3 a1 e6 
+                                 26 5d 4b a8 
+ 
+Round key :                      b6 d2 6c 04 
+                                 ff c2 59 69 
+                                 74 c9 0c bf 
+                                 4e bf bf 41 
+ 
+State at start of round 4 :      f9 d4 5e 00 
+                                 dc c8 02 e7 
+                                 55 0a ad 59 
+                                 68 e2 f4 e9 
+ 
+After sub_bytes :                99 48 58 63 
+                                 86 e8 77 94 
+                                 fc 67 95 cb 
+                                 45 98 bf 1e 
+ 
+After shift_rows :               99 48 58 63 
+                                 e8 77 94 86 
+                                 95 cb fc 67 
+                                 1e 45 98 bf 
+ 
+After mix_columns :              81 87 73 8f 
+                                 e8 a5 ec 62 
+                                 62 7d 9c f1 
+                                 f1 ee ab 21 
+ 
+Round key :                      47 95 f9 fd 
+                                 f7 35 6c 05 
+                                 f7 3e 32 8d 
+                                 bc 03 bc fd 
+ 
+State at start of round 5 :      c6 12 8a 72 
+                                 1f 90 80 67 
+                                 95 43 ae 7c 
+                                 4d ed 17 dc 
+ 
+After sub_bytes :                b4 c9 7e 40 
+                                 c0 60 cd 85 
+                                 2a 1a e4 10 
+                                 e3 55 f0 86 
+ 
+After shift_rows :               b4 c9 7e 40 
+                                 60 cd 85 c0 
+                                 e4 10 2a 1a 
+                                 86 e3 55 f0 
+ 
+After mix_columns :              b1 36 17 31 
+                                 c5 9b 44 05 
+                                 96 1a 50 bf 
+                                 54 40 87 e1 
+ 
+Round key :                      3c a9 50 ad 
+                                 aa 9f f3 f6 
+                                 a3 9d af 22 
+                                 e8 eb 57 aa 
+ 
+State at start of round 6 :      8d 9f 47 9c 
+                                 6f 04 b7 f3 
+                                 35 87 ff 9d 
+                                 bc ab d0 4b 
+ 
+After sub_bytes :                5d db a0 de 
+                                 a8 f2 a9 0d 
+                                 96 17 16 5e 
+                                 65 62 70 b3 
+ 
+After shift_rows :               5d db a0 de 
+                                 f2 a9 0d a8 
+                                 16 5e 96 17 
+                                 b3 65 62 70 
+ 
+After mix_columns :              12 76 b8 23 
+                                 2b 15 79 dc 
+                                 4d 61 3c c8 
+                                 7e 4b a4 26 
+ 
+Round key :                      5e f7 a7 0a 
+                                 39 a6 55 a3 
+                                 0f 92 3d 1f 
+                                 7d 96 c1 6b 
+ 
+State at start of round 7 :      4c 81 1f 29 
+                                 12 b3 2c 7f 
+                                 42 f3 01 d7 
+                                 03 dd 65 4d 
+ 
+After sub_bytes :                29 0c c0 a5 
+                                 c9 6d 71 d2 
+                                 2c 0d 7c 0e 
+                                 7b c1 4d e3 
+ 
+After shift_rows :               29 0c c0 a5 
+                                 6d 71 d2 c9 
+                                 7c 0e 2c 0d 
+                                 e3 7b c1 4d 
+ 
+After mix_columns :              7a fe 1b 51 
+                                 94 87 ca 76 
+                                 82 ec 12 a1 
+                                 b7 9d 3c aa 
+ 
+Round key :                      14 e3 44 4e 
+                                 f9 5f 0a a9 
+                                 70 e2 df c0 
+                                 1a 8c 4d 26 
+ 
+State at start of round 8 :      6e 1d 5f 1f 
+                                 6d d8 c0 df 
+                                 f2 0e cd 61 
+                                 ad 11 71 8c 
+ 
+After sub_bytes :                9f a4 cf c0 
+                                 3c 61 ba 9e 
+                                 89 ab bd ef 
+                                 95 82 a3 64 
+ 
+After shift_rows :               9f a4 cf c0 
+                                 61 ba 9e 3c 
+                                 bd ef 89 ab 
+                                 64 95 82 a3 
+ 
+After mix_columns :              5f fc 37 d7 
+                                 e5 74 ea fd 
+                                 33 7f c5 4f 
+                                 ae 93 42 91 
+ 
+Round key :                      47 a4 e0 ae 
+                                 43 1c 16 bf 
+                                 87 65 ba 7a 
+                                 35 b9 f4 d2 
+ 
+State at start of round 9 :      18 58 d7 79 
+                                 a6 68 fc 42 
+                                 b4 1a 7f 35 
+                                 9b 2a b6 43 
+ 
+After sub_bytes :                ad 6a 0e b6 
+                                 24 45 b0 2c 
+                                 8d a2 d2 96 
+                                 14 e5 4e 1a 
+ 
+After shift_rows :               ad 6a 0e b6 
+                                 45 b0 2c 24 
+                                 d2 96 8d a2 
+                                 1a 14 e5 4e 
+ 
+After mix_columns :              46 9d 00 f7 
+                                 50 a4 3f 4d 
+                                 79 d1 17 1f 
+                                 4f b0 62 db 
+ 
+Round key :                      54 f0 10 be 
+                                 99 85 93 2c 
+                                 32 57 ed 97 
+                                 d1 68 9c 4e 
+ 
+State at start of final round :  12 6d 10 49 
+                                 c9 21 ac 61 
+                                 4b 86 fa 88 
+                                 9e d8 fe 95 
+ 
+After sub_bytes :                c9 3c ca 3b 
+                                 dd fd 91 ef 
+                                 b3 44 2d c4 
+                                 0b 61 bb 2a 
+ 
+After shift_rows :               c9 3c ca 3b 
+                                 fd 91 ef dd 
+                                 2d c4 b3 44 
+                                 2a 0b 61 bb 
+ 
+Round key :                      13 e3 f3 4d 
+                                 11 94 07 2b 
+                                 1d 4a a7 30 
+                                 7f 17 8b c5 
+ 
+Final state :                    da df 39 76 
+                                 ec 05 e8 f6 
+                                 30 8e 14 74 
+                                 55 1c ea 7e 
+ 
+ 
+********************************************
+*                                          *
+*       I N V E R S E   C I P H E R        *
+*                                          *
+********************************************
+ 
+Initial state :                  da df 39 76 
+                                 ec 05 e8 f6 
+                                 30 8e 14 74 
+                                 55 1c ea 7e 
+ 
+Initial round key :              13 e3 f3 4d 
+                                 11 94 07 2b 
+                                 1d 4a a7 30 
+                                 7f 17 8b c5 
+ 
+State at start of round 9 :      c9 3c ca 3b 
+                                 fd 91 ef dd 
+                                 2d c4 b3 44 
+                                 2a 0b 61 bb 
+ 
+After inv_shift_rows :           c9 3c ca 3b 
+                                 dd fd 91 ef 
+                                 b3 44 2d c4 
+                                 0b 61 bb 2a 
+ 
+After inv_sub_bytes :            12 6d 10 49 
+                                 c9 21 ac 61 
+                                 4b 86 fa 88 
+                                 9e d8 fe 95 
+ 
+Round key :                      54 f0 10 be 
+                                 99 85 93 2c 
+                                 32 57 ed 97 
+                                 d1 68 9c 4e 
+ 
+After add_round_key :            46 9d 00 f7 
+                                 50 a4 3f 4d 
+                                 79 d1 17 1f 
+                                 4f b0 62 db 
+ 
+State at start of round 8 :      ad 6a 0e b6 
+                                 45 b0 2c 24 
+                                 d2 96 8d a2 
+                                 1a 14 e5 4e 
+ 
+After inv_shift_rows :           ad 6a 0e b6 
+                                 24 45 b0 2c 
+                                 8d a2 d2 96 
+                                 14 e5 4e 1a 
+ 
+After inv_sub_bytes :            18 58 d7 79 
+                                 a6 68 fc 42 
+                                 b4 1a 7f 35 
+                                 9b 2a b6 43 
+ 
+Round key :                      47 a4 e0 ae 
+                                 43 1c 16 bf 
+                                 87 65 ba 7a 
+                                 35 b9 f4 d2 
+ 
+After add_round_key :            5f fc 37 d7 
+                                 e5 74 ea fd 
+                                 33 7f c5 4f 
+                                 ae 93 42 91 
+ 
+State at start of round 7 :      9f a4 cf c0 
+                                 61 ba 9e 3c 
+                                 bd ef 89 ab 
+                                 64 95 82 a3 
+ 
+After inv_shift_rows :           9f a4 cf c0 
+                                 3c 61 ba 9e 
+                                 89 ab bd ef 
+                                 95 82 a3 64 
+ 
+After inv_sub_bytes :            6e 1d 5f 1f 
+                                 6d d8 c0 df 
+                                 f2 0e cd 61 
+                                 ad 11 71 8c 
+ 
+Round key :                      14 e3 44 4e 
+                                 f9 5f 0a a9 
+                                 70 e2 df c0 
+                                 1a 8c 4d 26 
+ 
+After add_round_key :            7a fe 1b 51 
+                                 94 87 ca 76 
+                                 82 ec 12 a1 
+                                 b7 9d 3c aa 
+ 
+State at start of round 6 :      29 0c c0 a5 
+                                 6d 71 d2 c9 
+                                 7c 0e 2c 0d 
+                                 e3 7b c1 4d 
+ 
+After inv_shift_rows :           29 0c c0 a5 
+                                 c9 6d 71 d2 
+                                 2c 0d 7c 0e 
+                                 7b c1 4d e3 
+ 
+After inv_sub_bytes :            4c 81 1f 29 
+                                 12 b3 2c 7f 
+                                 42 f3 01 d7 
+                                 03 dd 65 4d 
+ 
+Round key :                      5e f7 a7 0a 
+                                 39 a6 55 a3 
+                                 0f 92 3d 1f 
+                                 7d 96 c1 6b 
+ 
+After add_round_key :            12 76 b8 23 
+                                 2b 15 79 dc 
+                                 4d 61 3c c8 
+                                 7e 4b a4 26 
+ 
+State at start of round 5 :      5d db a0 de 
+                                 f2 a9 0d a8 
+                                 16 5e 96 17 
+                                 b3 65 62 70 
+ 
+After inv_shift_rows :           5d db a0 de 
+                                 a8 f2 a9 0d 
+                                 96 17 16 5e 
+                                 65 62 70 b3 
+ 
+After inv_sub_bytes :            8d 9f 47 9c 
+                                 6f 04 b7 f3 
+                                 35 87 ff 9d 
+                                 bc ab d0 4b 
+ 
+Round key :                      3c a9 50 ad 
+                                 aa 9f f3 f6 
+                                 a3 9d af 22 
+                                 e8 eb 57 aa 
+ 
+After add_round_key :            b1 36 17 31 
+                                 c5 9b 44 05 
+                                 96 1a 50 bf 
+                                 54 40 87 e1 
+ 
+State at start of round 4 :      b4 c9 7e 40 
+                                 60 cd 85 c0 
+                                 e4 10 2a 1a 
+                                 86 e3 55 f0 
+ 
+After inv_shift_rows :           b4 c9 7e 40 
+                                 c0 60 cd 85 
+                                 2a 1a e4 10 
+                                 e3 55 f0 86 
+ 
+After inv_sub_bytes :            c6 12 8a 72 
+                                 1f 90 80 67 
+                                 95 43 ae 7c 
+                                 4d ed 17 dc 
+ 
+Round key :                      47 95 f9 fd 
+                                 f7 35 6c 05 
+                                 f7 3e 32 8d 
+                                 bc 03 bc fd 
+ 
+After add_round_key :            81 87 73 8f 
+                                 e8 a5 ec 62 
+                                 62 7d 9c f1 
+                                 f1 ee ab 21 
+ 
+State at start of round 3 :      99 48 58 63 
+                                 e8 77 94 86 
+                                 95 cb fc 67 
+                                 1e 45 98 bf 
+ 
+After inv_shift_rows :           99 48 58 63 
+                                 86 e8 77 94 
+                                 fc 67 95 cb 
+                                 45 98 bf 1e 
+ 
+After inv_sub_bytes :            f9 d4 5e 00 
+                                 dc c8 02 e7 
+                                 55 0a ad 59 
+                                 68 e2 f4 e9 
+ 
+Round key :                      b6 d2 6c 04 
+                                 ff c2 59 69 
+                                 74 c9 0c bf 
+                                 4e bf bf 41 
+ 
+After add_round_key :            4f 06 32 04 
+                                 23 0a 5b 8e 
+                                 21 c3 a1 e6 
+                                 26 5d 4b a8 
+ 
+State at start of round 2 :      2a 49 6d 10 
+                                 2d aa 03 78 
+                                 92 b3 e3 61 
+                                 fe c2 0e cd 
+ 
+After inv_shift_rows :           2a 49 6d 10 
+                                 78 2d aa 03 
+                                 e3 61 92 b3 
+                                 c2 0e cd fe 
+ 
+After inv_sub_bytes :            95 a4 b3 7c 
+                                 c1 fa 62 d5 
+                                 4d d8 74 4b 
+                                 a8 d7 80 0c 
+ 
+Round key :                      b6 64 be 68 
+                                 92 3d 9b 30 
+                                 cf bd c5 b3 
+                                 0b f1 00 fe 
+ 
+After add_round_key :            23 c0 0d 14 
+                                 53 c7 f9 e5 
+                                 82 65 b1 f8 
+                                 a3 26 80 f2 
+ 
+State at start of round 1 :      9e 3e 8f 12 
+                                 e8 63 21 e1 
+                                 9d 13 a2 13 
+                                 ba 0a c9 1b 
+ 
+After inv_shift_rows :           9e 3e 8f 12 
+                                 e1 e8 63 21 
+                                 a2 13 9d 13 
+                                 0a c9 1b ba 
+ 
+After inv_sub_bytes :            df d1 73 39 
+                                 e0 c8 00 7b 
+                                 1a 82 75 82 
+                                 a3 12 44 c0 
+ 
+Round key :                      d6 d2 da d6 
+                                 aa af a6 ab 
+                                 74 72 78 76 
+                                 fd fa f1 fe 
+ 
+After add_round_key :            09 03 a9 ef 
+                                 4a 67 a6 d0 
+                                 6e f0 0d f4 
+                                 5e e8 b5 3e 
+ 
+State at start of final round :  ce 9b 69 e1 
+                                 94 e9 df 11 
+                                 4f 90 b8 0b 
+                                 66 9e b9 0e 
+ 
+After inv_shift_rows :           ce 9b 69 e1 
+                                 11 94 e9 df 
+                                 b8 0b 4f 90 
+                                 9e b9 0e 66 
+ 
+After inv_sub_bytes :            ec e8 e4 e0 
+                                 e3 e7 eb ef 
+                                 9a 9e 92 96 
+                                 df db d7 d3 
+ 
+Round key :                      00 04 08 0c 
+                                 01 05 09 0d 
+                                 02 06 0a 0e 
+                                 03 07 0b 0f 
+ 
+Final state :                    ec ec ec ec 
+                                 e2 e2 e2 e2 
+                                 98 98 98 98 
+                                 dc dc dc dc 

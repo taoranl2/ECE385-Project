@@ -1,0 +1,246 @@
+/************************************************************************
+AES Decryption Core Logic
+
+Dong Kai Wang, Fall 2017
+
+For use with ECE 385 Experiment 9
+University of Illinois ECE Department
+************************************************************************/
+
+module AES (
+	input	 logic CLK,
+	input  logic RESET,
+	input  logic AES_START,
+	output logic AES_DONE,
+	input  logic [127:0] AES_KEY,
+	input  logic [127:0] AES_MSG_ENC,
+	output logic [127:0] AES_MSG_DEC
+);
+	logic [1407:0] w;
+	logic [127:0]  state;
+	logic [127:0]  next_state;
+	logic [127:0]  key;
+	logic [127:0]	SHIFTOUT;
+	logic [1407:0] EXPANDOUT;
+	logic [127:0]	SUBOUT;
+	logic [127:0]	ROUNDOUT;
+	logic [127:0]	MIXOUT0;
+	logic [31:0]	MIXOUT1;
+	logic [31:0]	MIXOUT2;
+	logic [31:0]	MIXOUT3;
+	logic [4:0]    Counter;
+	logic [4:0]    Counter_next;
+	
+	enum logic [4:0]{PREPARE, 
+						  EXPAND,
+						  PREROUND1, 
+						  ROUND1, 
+						  LOOPSHIFT, 
+						  LOOPSUB, 
+						  PRELOOPROUND,
+						  LOOPROUND,
+						  LOOPMIX,
+						  CHOOSE,
+						  SHIFT,
+						  SUB,
+						  PREROUND2,
+						  ROUND2,
+						  FINISH} AES_STATE, AES_NEXT_STATE;
+	
+	KeyExpansion expansion(.clk(CLK), .Cipherkey(AES_KEY), .KeySchedule(EXPANDOUT));
+	
+	AddRoundKey(.state(state),.key(key),.out(ROUNDOUT));
+	
+	InvShiftRows shift(.data_in(state),.data_out(SHIFTOUT));
+	
+	InvSubBytes sub0(.clk(CLK), .in(state[7:0]), .out(SUBOUT[7:0]));
+	InvSubBytes sub1(.clk(CLK), .in(state[15:8]), .out(SUBOUT[15:8]));
+	InvSubBytes sub2(.clk(CLK), .in(state[23:16]), .out(SUBOUT[23:16]));
+	InvSubBytes sub3(.clk(CLK), .in(state[31:24]), .out(SUBOUT[31:24]));
+	InvSubBytes sub4(.clk(CLK), .in(state[39:32]), .out(SUBOUT[39:32]));
+	InvSubBytes sub5(.clk(CLK), .in(state[47:40]), .out(SUBOUT[47:40]));
+	InvSubBytes sub6(.clk(CLK), .in(state[55:48]), .out(SUBOUT[55:48]));
+	InvSubBytes sub7(.clk(CLK), .in(state[63:56]), .out(SUBOUT[63:56]));
+	InvSubBytes sub8(.clk(CLK), .in(state[71:64]), .out(SUBOUT[71:64]));
+	InvSubBytes sub9(.clk(CLK), .in(state[79:72]), .out(SUBOUT[79:72]));
+	InvSubBytes sub10(.clk(CLK), .in(state[87:80]), .out(SUBOUT[87:80]));
+	InvSubBytes sub11(.clk(CLK), .in(state[95:88]), .out(SUBOUT[95:88]));
+	InvSubBytes sub12(.clk(CLK), .in(state[103:96]), .out(SUBOUT[103:96]));
+	InvSubBytes sub13(.clk(CLK), .in(state[111:104]), .out(SUBOUT[111:104]));
+	InvSubBytes sub14(.clk(CLK), .in(state[119:112]), .out(SUBOUT[119:112]));
+	InvSubBytes sub15(.clk(CLK), .in(state[127:120]), .out(SUBOUT[127:120]));
+	
+	InvMixColumns mix0(.in(state[31:0]),.out(MIXOUT0[31:0]));
+	InvMixColumns mix1(.in(state[63:32]),.out(MIXOUT1[31:0]));
+	InvMixColumns mix2(.in(state[95:64]),.out(MIXOUT2[31:0]));
+	InvMixColumns mix3(.in(state[127:96]),.out(MIXOUT3[31:0]));
+	
+	always_ff @(posedge CLK)
+	begin
+		if (RESET) 
+		begin
+			AES_STATE <= PREPARE;
+			Counter <= 4'b0;
+		end
+		else
+		begin
+			state <= next_state;
+			AES_STATE <= AES_NEXT_STATE;
+			Counter <= Counter_next;
+		end
+	end
+	
+	always_comb
+	begin
+		Counter_next = Counter;
+		AES_NEXT_STATE = AES_STATE;
+		
+		unique case(AES_STATE)
+			PREPARE:
+			begin
+				if (AES_START == 1'b1)
+				begin
+					AES_NEXT_STATE = EXPAND;
+					Counter_next = 4'b0;
+				end
+				else
+				begin
+					AES_NEXT_STATE = PREPARE;
+				end
+			end
+			EXPAND:
+			begin
+				AES_NEXT_STATE = PREROUND1;
+			end
+			PREROUND1:
+			begin
+				AES_NEXT_STATE = ROUND1;
+			end
+			ROUND1:
+			begin
+				AES_NEXT_STATE = LOOPSHIFT;
+			end
+			LOOPSHIFT:
+			begin
+				AES_NEXT_STATE = LOOPSUB;
+			end
+			LOOPSUB:
+			begin
+				AES_NEXT_STATE = PRELOOPROUND;
+			end
+			PRELOOPROUND:
+			begin
+				AES_NEXT_STATE = LOOPROUND;
+			end
+			LOOPROUND:
+			begin
+				AES_NEXT_STATE = LOOPMIX;
+			end
+			LOOPMIX:
+			begin
+				AES_NEXT_STATE = CHOOSE;
+			end
+			CHOOSE:
+			begin
+				if (Counter == 9)
+				begin
+					AES_NEXT_STATE = SHIFT;	
+					Counter_next = 0;
+				end
+				else
+				begin
+					AES_NEXT_STATE = LOOPSHIFT;
+					Counter_next = Counter + 1'b1;
+				end
+			end
+			SHIFT:
+			begin 
+				AES_NEXT_STATE = SUB;
+			end
+			SUB:
+			begin
+				AES_NEXT_STATE = PREROUND2;
+			end
+			PREROUND2:
+			begin
+				AES_NEXT_STATE = ROUND2;
+			end
+			ROUND2:
+			begin
+				AES_NEXT_STATE = FINISH;
+			end
+			FINISH:
+			begin
+				if (AES_START == 1'b0)
+				begin
+					AES_NEXT_STATE = PREPARE;
+				end
+				else
+				begin
+					AES_NEXT_STATE = FINISH;
+				end
+			end
+		endcase
+		
+		next_state = state;
+		AES_DONE = 1'b0;
+		AES_MSG_DEC = 128'b0;
+		key = 128'b0;
+		case(AES_STATE)
+			PREPARE:
+			begin
+			end
+			EXPAND:
+			begin
+				w = EXPANDOUT;
+			end
+			PREROUND1:
+			begin
+				key = w[127:0];
+			end
+			PRELOOPROUND:
+			begin
+				case (Counter)
+					4'd8:key = w[1279:1152];
+					4'd7:key = w[1151:1024];
+					4'd6:key = w[1023:896];
+					4'd5:key = w[895:768];
+					4'd4:key = w[767:640];
+					4'd3:key = w[639:512];
+					4'd2:key = w[511:384];
+					4'd1:key = w[383:256];
+					4'd0:key = w[255:128];
+					default: key = 128'b0;
+				endcase
+			end
+			PREROUND2:
+			begin
+				key = w[1407:1280];
+			end
+			ROUND1,LOOPROUND,ROUND2:
+			begin
+				next_state = ROUNDOUT;
+			end
+			SHIFT,LOOPSHIFT:
+			begin
+				next_state = SHIFTOUT;
+			end
+			SUB,LOOPSUB:
+			begin
+				next_state = SUBOUT;
+			end	
+			LOOPMIX:
+			begin
+				next_state[31:0] = MIXOUT0[31:0];
+				next_state[63:32] = MIXOUT1[31:0];
+				next_state[95:64] = MIXOUT2[31:0];
+				next_state[127:96] = MIXOUT3[31:0];
+			end
+			FINISH:
+			begin
+				AES_MSG_DEC = next_state;
+				AES_DONE = 1'b1;
+			end
+		endcase
+	end			
+endmodule
