@@ -1,0 +1,28 @@
+Quartus Prime Archive log --	D:/curriculum FJ/ECE385/lab/lab5/lab5_toplevel_tmp_archive.qarlog
+
+Archive:	D:/curriculum FJ/ECE385/lab/lab5/lab5_toplevel_tmp_archive.qar
+Date:		Wed Oct 21 08:19:30 2020
+Quartus Prime		18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+	=========== Files Selected: ===========
+D:/curriculum FJ/ECE385/lab/lab5/ADD_SUB9.sv
+D:/curriculum FJ/ECE385/lab/lab5/Dreg.sv
+D:/curriculum FJ/ECE385/lab/lab5/HexDriver.sv
+D:/curriculum FJ/ECE385/lab/lab5/control.sv
+D:/curriculum FJ/ECE385/lab/lab5/lab5_toplevel.qpf
+D:/curriculum FJ/ECE385/lab/lab5/lab5_toplevel.qsf
+D:/curriculum FJ/ECE385/lab/lab5/lab5_toplevel.sv
+D:/curriculum FJ/ECE385/lab/lab5/register_unit.sv
+D:/curriculum FJ/ECE385/lab/lab5/sync.sv
+D:/curriculum FJ/ECE385/lab/lab5/testbench.sv
+c:/intelfpga_lite/18.1/quartus/bin64/assignment_defaults.qdf
+	======= Total: 11 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.
+
+
+******* Archived project restoration attempt on Wed Oct 21 08:19:32 2020
+Source archive file:	D:/curriculum FJ/ECE385/lab/lab5/lab5_toplevel_tmp_archive.qar
+Archive was extracted into	E:/ECE385_lab5/Yuan_Xinkai_Li_Taoran/
+		 - successfully.

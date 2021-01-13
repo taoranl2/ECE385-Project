@@ -1,0 +1,26 @@
+Quartus Prime Archive log --	D:/curriculum FJ/ECE385/lab/lab4/fouradder/fouradder_tmp_archive.qarlog
+
+Archive:	D:/curriculum FJ/ECE385/lab/lab4/fouradder/fouradder_tmp_archive.qar
+Date:		Wed Oct 14 10:12:54 2020
+Quartus Prime		18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+	=========== Files Selected: ===========
+D:/curriculum FJ/ECE385/lab/lab4/ece385sp16_lab4_adders/HexDriver.sv
+D:/curriculum FJ/ECE385/lab/lab4/ece385sp16_lab4_adders/carry_lookahead_adder.sv
+D:/curriculum FJ/ECE385/lab/lab4/ece385sp16_lab4_adders/carry_select_adder.sv
+D:/curriculum FJ/ECE385/lab/lab4/ece385sp16_lab4_adders/lab4_adders_toplevel.sv
+D:/curriculum FJ/ECE385/lab/lab4/ece385sp16_lab4_adders/ripple_adder.sv
+D:/curriculum FJ/ECE385/lab/lab4/ece385sp16_lab4_adders/testbench_adder.sv
+D:/curriculum FJ/ECE385/lab/lab4/fouradder/fouradder.qpf
+D:/curriculum FJ/ECE385/lab/lab4/fouradder/fouradder.qsf
+c:/intelfpga_lite/18.1/quartus/bin64/assignment_defaults.qdf
+	======= Total: 9 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.
+
+
+******* Archived project restoration attempt on Wed Oct 14 10:12:56 2020
+Source archive file:	D:/curriculum FJ/ECE385/lab/lab4/fouradder/fouradder_tmp_archive.qar
+Archive was extracted into	E:/ECE385_lab2/Yuan_Xinkai_Li_Taoran/
+		 - successfully.
